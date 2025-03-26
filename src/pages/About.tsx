@@ -30,7 +30,7 @@ const SkillCard = ({ icon: IconComponent, name, level }: { icon: any; name: stri
       }}
     >
       <Box
-        p={6}
+        p={{ base: 4, md: 6 }}
         bg={bgColor}
         borderRadius="xl"
         borderWidth="1px"
@@ -54,9 +54,9 @@ const SkillCard = ({ icon: IconComponent, name, level }: { icon: any; name: stri
           boxShadow: 'xl',
         }}
       >
-        <Icon as={IconComponent} w={10} h={10} color="brand.500" mb={4} />
-        <Text fontWeight="medium" color={textColor} mb={2}>{name}</Text>
-        <Badge colorScheme="brand" variant="subtle">{level}</Badge>
+        <Icon as={IconComponent} w={{ base: 8, md: 10 }} h={{ base: 8, md: 10 }} color="brand.500" mb={{ base: 3, md: 4 }} />
+        <Text fontWeight="medium" color={textColor} mb={2} fontSize={{ base: 'sm', md: 'md' }}>{name}</Text>
+        <Badge colorScheme="brand" variant="subtle" fontSize={{ base: 'xs', md: 'sm' }}>{level}</Badge>
       </Box>
     </motion.div>
   );
@@ -73,7 +73,7 @@ const ExperienceCard = ({ title, period, description }: { title: string; period:
       transition={{ duration: 0.2 }}
     >
       <Box
-        p={6}
+        p={{ base: 4, md: 6 }}
         bg={bgColor}
         borderRadius="xl"
         borderWidth="1px"
@@ -83,9 +83,9 @@ const ExperienceCard = ({ title, period, description }: { title: string; period:
           boxShadow: 'lg',
         }}
       >
-        <Heading size="md" color={textColor} mb={2}>{title}</Heading>
-        <Text color="brand.500" mb={4}>{period}</Text>
-        <Text color="gray.500">{description}</Text>
+        <Heading size={{ base: 'sm', md: 'md' }} color={textColor} mb={2}>{title}</Heading>
+        <Text color="brand.500" mb={{ base: 2, md: 4 }} fontSize={{ base: 'sm', md: 'md' }}>{period}</Text>
+        <Text color="gray.500" fontSize={{ base: 'sm', md: 'md' }}>{description}</Text>
       </Box>
     </motion.div>
   );
@@ -106,34 +106,44 @@ const About = () => {
 
   const experiences = [
     {
-      title: 'Full Stack Developer',
-      period: '2020 - Present',
-      description: 'Led the development of multiple web applications using React, Node.js, and various databases. Implemented responsive designs and optimized application performance.',
+      title: 'Software Engineer',
+      period: '2022 - Present',
+      description: 'Working as a Software Engineer at various organizations, developing and maintaining web applications using modern technologies.',
     },
     {
-      title: 'Frontend Developer',
-      period: '2018 - 2020',
-      description: 'Developed and maintained user interfaces for web applications using modern JavaScript frameworks and libraries.',
+      title: 'Software Developer',
+      period: '2021 - 2022',
+      description: 'Developed and maintained software applications, focusing on web development and software solutions.',
     },
+    {
+      title: 'Software Engineer',
+      period: '2020 - 2021',
+      description: 'Contributed to software development projects, working on both frontend and backend technologies.',
+    },
+    {
+      title: 'Software Developer',
+      period: '2019 - 2020',
+      description: 'Started professional software development career, working on various web applications and software solutions.',
+    }
   ];
 
   return (
-    <Box minH="100vh" pt={20}>
-      <Container maxW="1200px">
-        <VStack spacing={16} align="stretch">
+    <Box minH="100vh" pt={{ base: 16, md: 20 }}>
+      <Container maxW="1200px" px={{ base: 4, md: 6 }}>
+        <VStack spacing={{ base: 12, md: 16 }} align="stretch">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <Heading mb={6}>About Me</Heading>
-            <Text fontSize="lg" color={textColor} mb={6}>
+            <Heading mb={6} fontSize={{ base: '2xl', md: '3xl' }}>About Me</Heading>
+            <Text fontSize={{ base: 'md', md: 'lg' }} color={textColor} mb={6}>
               I am a passionate Full Stack Developer with expertise in building modern web applications.
               My journey in software development has equipped me with a strong foundation in both
               front-end and back-end technologies, allowing me to create seamless and efficient
               solutions for complex problems.
             </Text>
-            <Text fontSize="lg" color="gray.500">
+            <Text fontSize={{ base: 'md', md: 'lg' }} color="gray.500">
               With a keen eye for design and a commitment to writing clean, maintainable code,
               I strive to deliver exceptional user experiences while ensuring robust and scalable
               applications. I'm constantly learning and exploring new technologies to stay at the
@@ -148,8 +158,8 @@ const About = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <Heading size="lg" mb={8}>Skills & Technologies</Heading>
-            <SimpleGrid columns={{ base: 1, md: 2, lg: 3, xl: 4 }} spacing={6}>
+            <Heading size={{ base: 'lg', md: 'xl' }} mb={{ base: 6, md: 8 }}>Skills & Technologies</Heading>
+            <SimpleGrid columns={{ base: 1, sm: 2, lg: 3, xl: 4 }} spacing={{ base: 4, md: 6 }}>
               {skills.map((skill) => (
                 <SkillCard
                   key={skill.name}
@@ -168,8 +178,8 @@ const About = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
           >
-            <Heading size="lg" mb={8}>Experience</Heading>
-            <VStack spacing={6} align="stretch">
+            <Heading size={{ base: 'lg', md: 'xl' }} mb={{ base: 6, md: 8 }}>Experience</Heading>
+            <VStack spacing={{ base: 4, md: 6 }} align="stretch">
               {experiences.map((exp, index) => (
                 <ExperienceCard
                   key={index}

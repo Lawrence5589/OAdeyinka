@@ -37,7 +37,7 @@ const ProjectCard = ({ repo }: { repo: GitHubRepo }) => {
       }}
     >
       <Box
-        p={6}
+        p={{ base: 4, md: 6 }}
         bg={bgColor}
         borderRadius="xl"
         borderWidth="1px"
@@ -61,31 +61,31 @@ const ProjectCard = ({ repo }: { repo: GitHubRepo }) => {
           boxShadow: 'xl',
         }}
       >
-        <VStack align="start" spacing={4}>
-          <Flex justify="space-between" w="full" align="center">
-            <Heading size="md" color={textColor}>{repo.name}</Heading>
+        <VStack align="start" spacing={{ base: 3, md: 4 }}>
+          <Flex justify="space-between" w="full" align="center" flexWrap="wrap" gap={2}>
+            <Heading size={{ base: 'sm', md: 'md' }} color={textColor}>{repo.name}</Heading>
             {repo.language && (
-              <Badge colorScheme="brand" variant="subtle">
+              <Badge colorScheme="brand" variant="subtle" fontSize={{ base: 'xs', md: 'sm' }}>
                 {repo.language}
               </Badge>
             )}
           </Flex>
-          <Text color="gray.500" noOfLines={2}>{repo.description}</Text>
-          <HStack spacing={4} color="gray.500">
+          <Text color="gray.500" noOfLines={2} fontSize={{ base: 'sm', md: 'md' }}>{repo.description}</Text>
+          <HStack spacing={{ base: 3, md: 4 }} color="gray.500" flexWrap="wrap">
             <HStack>
               <Icon as={FaStar} />
-              <Text fontSize="sm">{repo.stargazers_count}</Text>
+              <Text fontSize={{ base: 'xs', md: 'sm' }}>{repo.stargazers_count}</Text>
             </HStack>
             <HStack>
               <Icon as={FaCodeBranch} />
-              <Text fontSize="sm">{repo.forks_count}</Text>
+              <Text fontSize={{ base: 'xs', md: 'sm' }}>{repo.forks_count}</Text>
             </HStack>
             <HStack>
               <Icon as={FaCode} />
-              <Text fontSize="sm">{repo.language}</Text>
+              <Text fontSize={{ base: 'xs', md: 'sm' }}>{repo.language}</Text>
             </HStack>
           </HStack>
-          <Text fontSize="sm" color="gray.500">
+          <Text fontSize={{ base: 'xs', md: 'sm' }} color="gray.500">
             Last updated: {new Date(repo.updated_at).toLocaleDateString()}
           </Text>
           <Box
@@ -96,6 +96,7 @@ const ProjectCard = ({ repo }: { repo: GitHubRepo }) => {
             color="brand.500"
             _hover={{ color: 'brand.600' }}
             fontWeight="medium"
+            fontSize={{ base: 'sm', md: 'md' }}
           >
             View on GitHub →
           </Box>
@@ -128,21 +129,21 @@ const Projects = () => {
     });
 
   return (
-    <Box minH="100vh" pt={20}>
-      <Container maxW="1200px">
-        <VStack spacing={12} align="stretch">
+    <Box minH="100vh" pt={{ base: 16, md: 20 }}>
+      <Container maxW="1200px" px={{ base: 4, md: 6 }}>
+        <VStack spacing={{ base: 8, md: 12 }} align="stretch">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <Heading mb={4}>My Projects</Heading>
-            <Text fontSize="lg" color="gray.500" mb={8}>
+            <Heading mb={4} fontSize={{ base: '2xl', md: '3xl' }}>My Projects</Heading>
+            <Text fontSize={{ base: 'md', md: 'lg' }} color="gray.500" mb={{ base: 6, md: 8 }}>
               A collection of my work and contributions to the open-source community.
             </Text>
             <Flex
               direction={{ base: 'column', md: 'row' }}
-              gap={4}
+              gap={{ base: 3, md: 4 }}
               align={{ base: 'stretch', md: 'center' }}
             >
               <InputGroup maxW={{ base: 'full', md: '300px' }}>
@@ -153,12 +154,14 @@ const Projects = () => {
                   placeholder="Search projects..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
+                  size={{ base: 'md', md: 'lg' }}
                 />
               </InputGroup>
               <Select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as 'updated' | 'stars')}
                 maxW={{ base: 'full', md: '200px' }}
+                size={{ base: 'md', md: 'lg' }}
               >
                 <option value="updated">Last Updated</option>
                 <option value="stars">Most Stars</option>
@@ -174,7 +177,7 @@ const Projects = () => {
             {isLoading ? (
               <Text>Loading projects...</Text>
             ) : (
-              <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={6}>
+              <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={{ base: 4, md: 6 }}>
                 {filteredRepos.map((repo) => (
                   <ProjectCard key={repo.id} repo={repo} />
                 ))}

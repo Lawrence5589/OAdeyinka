@@ -118,7 +118,7 @@ const Navbar = () => {
               _hover={{ color: 'brand.500' }}
               transition="color 0.2s"
             >
-              OAdeyinka
+              Olalekan Lawrence Adeyinka
             </Box>
           </RouterLink>
         </Flex>

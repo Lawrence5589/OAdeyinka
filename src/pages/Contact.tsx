@@ -31,7 +31,7 @@ const ContactInfo = ({ icon: IconComponent, title, content }: { icon: any; title
   return (
     <Flex
       align="center"
-      p={4}
+      p={{ base: 3, md: 4 }}
       bg={bgColor}
       borderRadius="lg"
       borderWidth="1px"
@@ -43,10 +43,10 @@ const ContactInfo = ({ icon: IconComponent, title, content }: { icon: any; title
       }}
       transition="all 0.2s"
     >
-      <Icon as={IconComponent} w={6} h={6} color="brand.500" mr={4} />
+      <Icon as={IconComponent} w={{ base: 5, md: 6 }} h={{ base: 5, md: 6 }} color="brand.500" mr={{ base: 3, md: 4 }} />
       <Box>
-        <Text fontWeight="medium" color={textColor}>{title}</Text>
-        <Text color="gray.500">{content}</Text>
+        <Text fontWeight="medium" color={textColor} fontSize={{ base: 'sm', md: 'md' }}>{title}</Text>
+        <Text color="gray.500" fontSize={{ base: 'sm', md: 'md' }}>{content}</Text>
       </Box>
     </Flex>
   );
@@ -104,21 +104,21 @@ const Contact = () => {
   };
 
   return (
-    <Box minH="100vh" pt={20}>
-      <Container maxW="1200px">
+    <Box minH="100vh" pt={{ base: 16, md: 20 }}>
+      <Container maxW="1200px" px={{ base: 4, md: 6 }}>
         <Flex
           direction={{ base: 'column', lg: 'row' }}
-          gap={12}
+          gap={{ base: 8, lg: 12 }}
           align="stretch"
         >
-          <VStack flex={1} align="stretch" spacing={8}>
+          <VStack flex={1} align="stretch" spacing={{ base: 6, md: 8 }}>
             <MotionBox
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <Heading mb={4}>Get in Touch</Heading>
-              <Text fontSize="lg" color="gray.500">
+              <Heading mb={4} fontSize={{ base: '2xl', md: '3xl' }}>Get in Touch</Heading>
+              <Text fontSize={{ base: 'md', md: 'lg' }} color="gray.500">
                 Have a question or want to work together? Feel free to reach out!
                 I'm always open to discussing new projects, creative ideas, or
                 opportunities to be part of your visions.
@@ -130,21 +130,16 @@ const Contact = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              <VStack spacing={4} align="stretch">
+              <VStack spacing={{ base: 3, md: 4 }} align="stretch">
                 <ContactInfo
                   icon={FaEnvelope}
                   title="Email"
-                  content="your.email@example.com"
+                  content="lawrenceadeyinka.10@gmail.com"
                 />
                 <ContactInfo
                   icon={FaPhone}
                   title="Phone"
-                  content="+1 (234) 567-8900"
-                />
-                <ContactInfo
-                  icon={FaMapMarkerAlt}
-                  title="Location"
-                  content="Lagos, Nigeria"
+                  content="+7 926 9192 166"
                 />
               </VStack>
             </MotionBox>
@@ -157,7 +152,7 @@ const Contact = () => {
             transition={{ duration: 0.5, delay: 0.4 }}
           >
             <Box
-              p={8}
+              p={{ base: 6, md: 8 }}
               bg={bgColor}
               borderRadius="xl"
               borderWidth="1px"
@@ -165,15 +160,15 @@ const Contact = () => {
               boxShadow="lg"
             >
               <form onSubmit={handleSubmit}>
-                <VStack spacing={6}>
+                <VStack spacing={{ base: 4, md: 6 }}>
                   <FormControl isRequired>
-                    <FormLabel>Name</FormLabel>
+                    <FormLabel fontSize={{ base: 'sm', md: 'md' }}>Name</FormLabel>
                     <Input
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
                       placeholder="Your name"
-                      size="lg"
+                      size={{ base: 'md', md: 'lg' }}
                       _focus={{
                         borderColor: 'brand.500',
                         boxShadow: '0 0 0 1px var(--chakra-colors-brand-500)',
@@ -182,14 +177,14 @@ const Contact = () => {
                   </FormControl>
 
                   <FormControl isRequired>
-                    <FormLabel>Email</FormLabel>
+                    <FormLabel fontSize={{ base: 'sm', md: 'md' }}>Email</FormLabel>
                     <Input
                       name="email"
                       type="email"
                       value={formData.email}
                       onChange={handleChange}
                       placeholder="your.email@example.com"
-                      size="lg"
+                      size={{ base: 'md', md: 'lg' }}
                       _focus={{
                         borderColor: 'brand.500',
                         boxShadow: '0 0 0 1px var(--chakra-colors-brand-500)',
@@ -198,14 +193,14 @@ const Contact = () => {
                   </FormControl>
 
                   <FormControl isRequired>
-                    <FormLabel>Message</FormLabel>
+                    <FormLabel fontSize={{ base: 'sm', md: 'md' }}>Message</FormLabel>
                     <Textarea
                       name="message"
                       value={formData.message}
                       onChange={handleChange}
                       placeholder="Your message"
                       rows={6}
-                      size="lg"
+                      size={{ base: 'md', md: 'lg' }}
                       _focus={{
                         borderColor: 'brand.500',
                         boxShadow: '0 0 0 1px var(--chakra-colors-brand-500)',
@@ -216,7 +211,7 @@ const Contact = () => {
                   <Button
                     type="submit"
                     colorScheme="brand"
-                    size="lg"
+                    size={{ base: 'md', md: 'lg' }}
                     width="full"
                     isLoading={isSubmitting}
                     loadingText="Sending..."

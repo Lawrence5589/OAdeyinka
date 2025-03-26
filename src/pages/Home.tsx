@@ -9,24 +9,23 @@ const Home = () => {
 
   const socialLinks = [
     { icon: FaGithub, href: 'https://github.com/Lawrence5589', label: 'GitHub' },
-    { icon: FaLinkedin, href: 'https://linkedin.com/in/your-profile', label: 'LinkedIn' },
-    { icon: FaTwitter, href: 'https://twitter.com/your-handle', label: 'Twitter' },
+    { icon: FaLinkedin, href: 'https://www.linkedin.com/in/olalekan-adeyinka-2961ba124/', label: 'LinkedIn' },
   ];
 
   return (
-    <Box minH="100vh" pt={20}>
-      <Container maxW="1200px">
+    <Box minH="100vh" pt={{ base: 16, md: 20 }}>
+      <Container maxW="1200px" px={{ base: 4, md: 6 }}>
         <Flex
           direction={{ base: 'column', lg: 'row' }}
           align="center"
           justify="space-between"
-          gap={8}
-          py={12}
+          gap={{ base: 6, lg: 8 }}
+          py={{ base: 8, md: 12 }}
         >
           <VStack
             flex={1}
             align={{ base: 'center', lg: 'flex-start' }}
-            spacing={8}
+            spacing={{ base: 6, md: 8 }}
             textAlign={{ base: 'center', lg: 'left' }}
           >
             <motion.div
@@ -36,15 +35,16 @@ const Home = () => {
             >
               <Heading
                 as="h1"
-                size="2xl"
+                size={{ base: 'xl', md: '2xl' }}
                 color={textColor}
                 mb={4}
                 lineHeight="1.2"
+                px={{ base: 4, md: 0 }}
               >
                 Olalekan Lawrence
-                <Box as="span" color="brand.500">Adeyinka</Box>
+                <Box as="span" color="brand.500"> Adeyinka</Box>
               </Heading>
-              <Text fontSize="xl" color="gray.500" mb={8}>
+              <Text fontSize={{ base: 'lg', md: 'xl' }} color="gray.500" mb={{ base: 6, md: 8 }}>
                 Full Stack Developer | Problem Solver | Tech Enthusiast
               </Text>
             </motion.div>
@@ -54,7 +54,7 @@ const Home = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              <Text fontSize="lg" color="gray.600" maxW="600px" mb={8}>
+              <Text fontSize={{ base: 'md', md: 'lg' }} color="gray.600" maxW="600px" mb={{ base: 6, md: 8 }} px={{ base: 4, md: 0 }}>
                 Welcome to my portfolio! I'm passionate about creating elegant solutions
                 to complex problems using modern web technologies. With expertise in
                 full-stack development, I build scalable and user-friendly applications
@@ -67,11 +67,11 @@ const Home = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.4 }}
             >
-              <HStack spacing={4} mb={8}>
+              <HStack spacing={{ base: 3, md: 4 }} mb={{ base: 6, md: 8 }} flexWrap="wrap" justify={{ base: 'center', lg: 'flex-start' }}>
                 <Button
                   as={RouterLink}
                   to="/projects"
-                  size="lg"
+                  size={{ base: 'md', md: 'lg' }}
                   colorScheme="brand"
                   rightIcon={<Icon as={FaGithub} />}
                 >
@@ -80,7 +80,7 @@ const Home = () => {
                 <Button
                   as={RouterLink}
                   to="/contact"
-                  size="lg"
+                  size={{ base: 'md', md: 'lg' }}
                   variant="outline"
                   colorScheme="brand"
                 >
@@ -94,7 +94,7 @@ const Home = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.6 }}
             >
-              <HStack spacing={6}>
+              <HStack spacing={{ base: 4, md: 6 }}>
                 {socialLinks.map((social) => (
                   <IconButton
                     key={social.label}
@@ -107,7 +107,7 @@ const Home = () => {
                     variant="ghost"
                     color={textColor}
                     _hover={{ color: 'brand.500' }}
-                    size="lg"
+                    size={{ base: 'md', md: 'lg' }}
                   />
                 ))}
               </HStack>
@@ -123,14 +123,15 @@ const Home = () => {
             <Box
               position="relative"
               w="full"
-              h="400px"
+              h={{ base: '300px', md: '400px' }}
               bg={bgColor}
               borderRadius="2xl"
               overflow="hidden"
               boxShadow="2xl"
+              mt={{ base: 8, lg: 0 }}
             >
               <Image
-                src="/your-profile-image.jpg"
+                src="/images/Designer.webp"
                 alt="Profile"
                 objectFit="cover"
                 w="full"
