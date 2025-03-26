@@ -10,60 +10,105 @@ import {
   VStack,
   HStack,
   useColorModeValue,
+  Icon,
+  Badge,
+  Flex,
+  InputGroup,
+  InputLeftElement,
 } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import { useQuery } from '@tanstack/react-query';
 import { githubService, GitHubRepo } from '../services/github';
-
-const MotionBox = motion(Box);
+import { FaSearch, FaStar, FaCodeBranch, FaCode } from 'react-icons/fa';
 
 const ProjectCard = ({ repo }: { repo: GitHubRepo }) => {
   const bgColor = useColorModeValue('white', 'gray.800');
   const borderColor = useColorModeValue('gray.200', 'gray.700');
+  const textColor = useColorModeValue('gray.800', 'white');
 
   return (
-    <MotionBox
+    <motion.div
       whileHover={{ y: -5 }}
       transition={{ duration: 0.2 }}
-      p={6}
-      bg={bgColor}
-      borderRadius="lg"
-      borderWidth="1px"
-      borderColor={borderColor}
-      height="100%"
+      style={{
+        height: '100%',
+        position: 'relative',
+        overflow: 'hidden',
+      }}
     >
-      <VStack align="start" spacing={4}>
-        <Heading size="md">{repo.name}</Heading>
-        <Text color="gray.500">{repo.description}</Text>
-        <HStack spacing={4}>
+      <Box
+        p={6}
+        bg={bgColor}
+        borderRadius="xl"
+        borderWidth="1px"
+        borderColor={borderColor}
+        height="100%"
+        position="relative"
+        _before={{
+          content: '""',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          height: '4px',
+          bg: 'brand.500',
+          transform: 'scaleX(0)',
+          transformOrigin: 'left',
+          transition: 'transform 0.3s ease-in-out',
+        }}
+        _hover={{
+          _before: { transform: 'scaleX(1)' },
+          boxShadow: 'xl',
+        }}
+      >
+        <VStack align="start" spacing={4}>
+          <Flex justify="space-between" w="full" align="center">
+            <Heading size="md" color={textColor}>{repo.name}</Heading>
+            {repo.language && (
+              <Badge colorScheme="brand" variant="subtle">
+                {repo.language}
+              </Badge>
+            )}
+          </Flex>
+          <Text color="gray.500" noOfLines={2}>{repo.description}</Text>
+          <HStack spacing={4} color="gray.500">
+            <HStack>
+              <Icon as={FaStar} />
+              <Text fontSize="sm">{repo.stargazers_count}</Text>
+            </HStack>
+            <HStack>
+              <Icon as={FaCodeBranch} />
+              <Text fontSize="sm">{repo.forks_count}</Text>
+            </HStack>
+            <HStack>
+              <Icon as={FaCode} />
+              <Text fontSize="sm">{repo.language}</Text>
+            </HStack>
+          </HStack>
           <Text fontSize="sm" color="gray.500">
-            ⭐ {repo.stargazers_count}
+            Last updated: {new Date(repo.updated_at).toLocaleDateString()}
           </Text>
-          <Text fontSize="sm" color="gray.500">
-            🔄 {repo.forks_count}
-          </Text>
-          {repo.language && (
-            <Text fontSize="sm" color="gray.500">
-              {repo.language}
-            </Text>
-          )}
-        </HStack>
-        <Text fontSize="sm" color="gray.500">
-          Last updated: {new Date(repo.updated_at).toLocaleDateString()}
-        </Text>
-        <Box as="a" href={repo.html_url} target="_blank" rel="noopener noreferrer">
-          <Text color="brand.500" _hover={{ textDecoration: 'underline' }}>
+          <Box
+            as="a"
+            href={repo.html_url}
+            target="_blank"
+            rel="noopener noreferrer"
+            color="brand.500"
+            _hover={{ color: 'brand.600' }}
+            fontWeight="medium"
+          >
             View on GitHub →
-          </Text>
-        </Box>
-      </VStack>
-    </MotionBox>
+          </Box>
+        </VStack>
+      </Box>
+    </motion.div>
   );
 };
 
 const Projects = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [sortBy, setSortBy] = useState<'updated' | 'stars'>('updated');
+  const textColor = useColorModeValue('gray.800', 'white');
 
   const { data: repos = [], isLoading } = useQuery({
     queryKey: ['repos'],
@@ -85,40 +130,57 @@ const Projects = () => {
   return (
     <Box minH="100vh" pt={20}>
       <Container maxW="1200px">
-        <VStack spacing={8} align="stretch">
-          <MotionBox
+        <VStack spacing={12} align="stretch">
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <Heading mb={8}>My Projects</Heading>
-            <HStack spacing={4} mb={8}>
-              <Input
-                placeholder="Search projects..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                maxW="300px"
-              />
+            <Heading mb={4}>My Projects</Heading>
+            <Text fontSize="lg" color="gray.500" mb={8}>
+              A collection of my work and contributions to the open-source community.
+            </Text>
+            <Flex
+              direction={{ base: 'column', md: 'row' }}
+              gap={4}
+              align={{ base: 'stretch', md: 'center' }}
+            >
+              <InputGroup maxW={{ base: 'full', md: '300px' }}>
+                <InputLeftElement pointerEvents="none">
+                  <Icon as={FaSearch} color="gray.400" />
+                </InputLeftElement>
+                <Input
+                  placeholder="Search projects..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
+              </InputGroup>
               <Select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as 'updated' | 'stars')}
-                maxW="200px"
+                maxW={{ base: 'full', md: '200px' }}
               >
                 <option value="updated">Last Updated</option>
                 <option value="stars">Most Stars</option>
               </Select>
-            </HStack>
-          </MotionBox>
+            </Flex>
+          </motion.div>
 
-          {isLoading ? (
-            <Text>Loading projects...</Text>
-          ) : (
-            <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={6}>
-              {filteredRepos.map((repo) => (
-                <ProjectCard key={repo.id} repo={repo} />
-              ))}
-            </SimpleGrid>
-          )}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            {isLoading ? (
+              <Text>Loading projects...</Text>
+            ) : (
+              <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={6}>
+                {filteredRepos.map((repo) => (
+                  <ProjectCard key={repo.id} repo={repo} />
+                ))}
+              </SimpleGrid>
+            )}
+          </motion.div>
         </VStack>
       </Container>
     </Box>
